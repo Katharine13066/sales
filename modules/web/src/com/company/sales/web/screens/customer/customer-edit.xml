@@ -15,20 +15,40 @@
             </view>
             <loader/>
         </instance>
+        <collection id="ordersDc" class="com.company.sales.entity.Order">
+            <view extends="_local"/>
+            <loader id="ordersDl">
+                <query>
+                    <![CDATA[select e from sales_Order e where e.customer = :customer]]>
+                </query>
+            </loader>
+        </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
-        <form id="form" dataContainer="customerDc">
-            <column width="350px">
-                <textField id="nameField" property="name"/>
-                <textField id="emailField" property="email"/>
-                <textField id="addressCityField" property="address.city"/>
-                <textField id="addressStreetField" property="address.street"/>
-                <textField id="addressNumberField" property="address.number"/>
-                <lookupField id="customerTypeField" property="customerType"/>
-            </column>
-        </form>
+        <tabSheet>
+            <tab id="tab" caption="Tab1" spacing="true">
+                <form id="form" dataContainer="customerDc">
+                    <column width="350px">
+                        <textField id="nameField" property="name"/>
+                        <textField id="emailField" property="email"/>
+                        <textField id="addressCityField" property="address.city"/>
+                        <textField id="addressStreetField" property="address.street"/>
+                        <textField id="addressNumberField" property="address.number"/>
+                        <lookupField id="customerTypeField" property="customerType"/>
+                    </column>
+                </form>
+            </tab>
+            <tab id="tab_1" caption="Tab2" spacing="true">
+                <table id="ordersTable" height="100%" width="100%" dataContainer="ordersDc">
+                    <columns>
+                        <column id="date"/>
+                        <column id="amount"/>
+                    </columns>
+                </table>
+            </tab>
+        </tabSheet>
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>
